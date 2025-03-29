@@ -1,5 +1,17 @@
-FROM node:17-alpine
+FROM node:18-alpine
 
-COPY consumer.js /consumer.js
+#Create a app directory
+WORKDIR /node-publisher
 
-CMD ["node", "./consumer.js"]
+EXPOSE 3000
+
+#Install app dependencies
+COPY package*.json ./
+
+#Run npm install
+RUN npm install
+
+#Bundle app souce
+COPY . .
+
+CMD ["node", "./publisher.js"]
